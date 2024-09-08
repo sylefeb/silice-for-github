@@ -1,0 +1,37 @@
+name: release
+
+on:
+  push:
+
+jobs:
+  build-silice:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Install Silice
+        shell: bash
+        run: |
+          git clone --recursive --branch draft https://github.com/sylefeb/Silice
+          cd Silice
+          ./get_started_linux.sh --non-interactive
+      - name: Package
+        shell: bash
+        run: |
+          ./package.sh
+
+  release-silice:
+    needs: build-silice
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release
+        uses: ncipollo/release-action@v1
+        if: hashFiles('release.tgz') != ''
+        with:
+          allowUpdates: True
+          prerelease: True
+          omitBody: True
+          omitBodyDuringUpdate: True
+          omitNameDuringUpdate: True
+          tag: bucket-linux-x64
+          artifacts: "release.tgz"
