@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  build-silice:
+  release-silice:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -19,11 +19,7 @@ jobs:
         shell: bash
         run: |
           ./package.sh
-
-  release-silice:
-    needs: build-silice
-    runs-on: ubuntu-latest
-    steps:
+          ls -la
       - name: Release
         uses: ncipollo/release-action@v1
         if: hashFiles('release.tgz') != ''
