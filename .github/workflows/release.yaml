@@ -31,3 +31,4 @@ jobs:
           omitNameDuringUpdate: True
           tag: bucket-linux-x64
           artifacts: "release.tgz"
+          token: ${{ secrets.GITHUB_TOKEN }}
