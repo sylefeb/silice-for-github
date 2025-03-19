@@ -1,5 +1,5 @@
 name: 'Install Silice'
-description: 'installs Silice'
+description: 'installs Silice ...'
 runs:
   using: "composite"
   steps:
